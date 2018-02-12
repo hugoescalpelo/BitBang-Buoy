@@ -113,7 +113,7 @@ void loop()
   if (timeNow > timeNext && gf == 0)
   {
     Serial.println ("Change meanwave");
-    meanWave = 90;
+    meanWave = 99;
     doOneThing ();
     gf = 1;
   }

@@ -17,7 +17,7 @@ void getWaves (byte y)
   {
     case 1://constant
       meanWave = 3;//Percentage extension
-      wavePeriod = 3000;//Speed
+      wavePeriod = 2500;//Speed
       waveSlope = 90;//Shift angle in degrees
       waveEntropy = 1;
       printCaseOne ();
@@ -44,15 +44,16 @@ void waveRender ()
 {
   //
   waveExtension = map (meanWave, 0, 100, 0, 180);
-  waveSpeed = map (wavePeriod, minWavePeriod, maxWavePeriod, minWaveSpeed, maxWaveSpeed);//We expect a linear relation between speed and steps in microsecodns
+  waveSpeed = map (wavePeriod, minWavePeriod, maxWavePeriod, maxWaveSpeed, minWaveSpeed);//We expect a linear relation between speed and steps in microsecodns
   //waveSlope = waveSlope;//no need changes since the input is in degrees
 
 }
 
 void waveDriver ()
 {
+  syncSpeed ();
   syncExtension ();
-  //syncSpeed ();
+  
   //syncSlope
 }
 
@@ -72,5 +73,14 @@ void syncExtension ()
     rwExtension (regExtension - waveExtension);//Motors Tab
   }
   regExtension = waveExtension;
+}
+
+void syncSpeed ()
+{
+  Serial.print ("waveSpeed ");
+  Serial.print (waveSpeed);
+  Serial.print (" regSpeed ");
+  Serial.println (regSpeed);
+  st = waveSpeed;
 }
 
