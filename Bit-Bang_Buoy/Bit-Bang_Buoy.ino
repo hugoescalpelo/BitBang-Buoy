@@ -81,6 +81,10 @@ int detectS2 = 424;
   bool gf = 0;
   bool sf = 0;
 
+  int ext;
+  int spp;
+  int slp;
+
 void setup() 
 {
   Serial.begin (2000000);
@@ -95,45 +99,22 @@ void setup()
   stepsLap ();//Calibration tab
   Serial.println ("out of stepsLap");
   getWaves (1);//Waves tab
+  testSequence ();
 }
 
 void loop() 
 {
-  //Serial.println ("loop");
   timeNow = micros ();
-  
   runAll ();
-  if (fg == 0)
+  if (Serial.available () > 0)
   {
-    Serial.println ("do one thing");
-    doOneThing ();
-    fg = 1;
-    timeNext = micros () + 5000000;
+    ext = Serial.parseInt ();
+    spp = Serial.parseInt ();
+    slp = Serial.parseInt ();
+
+    Serial.println (":)");
+
+    doThisThing();
   }
-
-  if (timeNow > timeNext && gf == 0)
-  {
-    Serial.println ("Change meanwave");
-    meanWave = 99;
-    doOneThing ();
-    gf = 1;
-    timeNext = micros () + 5000000;
-  }
-
-  if (timeNow > timeNext && sf == 0)
-  {
-    Serial.println ("Change waveSlope");
-    waveSlope = 90;
-    doOneThing ();
-    sf = 1;
-  }
-
-  //For random demonstration
-//  if (timeNow > indexLoop)
-//  {
-//    doSomething ();//Waves tab
-//    indexLoop = timeNow + loopInterval;
-//    Serial.println ("do something");
-//  }
-
+  
 }

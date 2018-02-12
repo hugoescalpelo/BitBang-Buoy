@@ -11,6 +11,13 @@ void doOneThing ()
   waveDriver ();
 }
 
+void doThisThing ()
+{
+  getWaves (4);
+  waveRender ();
+  waveDriver ();
+}
+
 void getWaves (byte y)
 {
   switch (y)
@@ -31,6 +38,10 @@ void getWaves (byte y)
     case 3:
       //get from wave watch 3 algorithm
       break;
+    case 4://Serial
+      meanWave = ext;
+      wavePeriod = spp;
+      waveSlope = slp;    
     default:
       meanWave = meanWave;//Percentage extension
       wavePeriod = wavePeriod;//Speed

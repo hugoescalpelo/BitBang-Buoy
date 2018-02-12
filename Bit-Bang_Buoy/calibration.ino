@@ -74,3 +74,39 @@ void stepsLap ()
   regSlope = 0;//in degrees
 }
 
+void testSequence ()
+{
+  bool od = 0;
+  while (od == 0)
+  {
+    timeNow = micros ();
+
+    runAll ();
+    if (fg == 0)
+    {
+      Serial.println ("do one thing");
+      doOneThing ();
+      fg = 1;
+      timeNext = micros () + 5000000;
+    }
+
+    if (timeNow > timeNext && gf == 0)
+    {
+      Serial.println ("Change meanwave");
+      meanWave = 99;
+      doOneThing ();
+      gf = 1;
+      timeNext = micros () + 5000000;
+    }
+
+    if (timeNow > timeNext && sf == 0)
+    {
+      Serial.println ("Change waveSlope");
+      waveSlope = 90;
+      doOneThing ();
+      sf = 1;
+      od = 1;
+    }
+  }
+}
+
