@@ -8,7 +8,7 @@ int step3 = 10;
 int dir4 = 11;
 int step4 = 12;
 
-int st = 2000;
+int st = 1000;
 
 //time variables
 double timeNow;
@@ -27,14 +27,14 @@ int detectS2 = 425;
 //Calibration variables
   byte cBanner = 0;
 
-  int extSpeed = 10000;
-  int intSpeed = 400;
+  int extSpeed = st*2;
+  int intSpeed = extSpeed/20;
 
   byte motorBanner1 = 0;
   byte motorBanner2 = 0;
 
   double indexRead;
-  double readInterval = 100000;
+  double readInterval = 20000;//twenty times per second
 
   double indexOnExt = timeNow + extSpeed;
   double indexOffExt = indexOnExt + extSpeed;
@@ -48,19 +48,29 @@ int detectS2 = 425;
 
   int stepCounter = 0;
 
+  double stickOffTime = 2500000;
+  double indexStickOff;
+
 void setup() 
 {
+  Serial.begin (2000000);
+  Serial.println ("inicio");
   setModes ();
   setInitials ();
 
   timeNow = micros ();
   calibrationRoutine ();
-  //twoLevelStepCounter ();
-
+  int ddd = 9;
+  while (ddd > 0)
+  {
+  twoLevelStepCounter ();
+  ddd--;
+  }
 }
 
 void loop() 
 {
+  //Serial.println ("loop");
   timeNow = micros ();
   runAll ();
 

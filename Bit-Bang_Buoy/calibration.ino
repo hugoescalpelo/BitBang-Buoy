@@ -38,16 +38,64 @@ void calibrationRoutine ()
   }
 }
 
-//void twoLevelStepCounter ()
-//{
-//  cBanner = 0;
-//  while (cBanner == 0)
-//  {
-//    timeNow = micros ();
-//    readAll (
-//    runAll ();
-//  }
-//  timeNow = micros ();
-//  runAll ();
-//}
+void twoLevelStepCounter ()
+{
+  //st = st/2;
+  cBanner = 0;
+  timeNow = micros ();
+  indexStickOff = timeNow + stickOffTime;
+
+  while (cBanner == 0)
+  {
+    timeNow = micros ();
+    readAll ();
+    runAllTest ();
+    if (timeNow > indexStickOff)
+    {
+      cBanner = 1;
+    }
+  }
+  cBanner = 0;
+  while (cBanner == 0)
+  {
+    timeNow = micros ();
+    readAll ();
+    runAllTest ();
+    if (dataS1 < detectS1 || dataS2 < detectS2)
+    {
+      cBanner = 1;
+    }
+  }
+  Serial.println (stepCounter);
+
+  //st = st*2;
+  stepCounter = 0;
+
+  cBanner = 0;
+  timeNow = micros ();
+  indexStickOff = timeNow + stickOffTime;
+
+  while (cBanner == 0)
+  {
+    timeNow = micros ();
+    //readAll ();
+    runAllTest ();
+    if (timeNow > indexStickOff)
+    {
+      cBanner = 1;
+    }
+  }
+  cBanner = 0;
+  while (cBanner == 0)
+  {
+    timeNow = micros ();
+    readAll ();
+    runAllTest ();
+    if (dataS1 < detectS1 || dataS2 < detectS2)
+    {
+      cBanner = 1;
+    }
+  }
+  Serial.println (stepCounter);
+}
 

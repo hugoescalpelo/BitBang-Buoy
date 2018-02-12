@@ -34,8 +34,10 @@ void stop12 ()
 
 void speedCorrect ()
 {
-  intSpeed = intSpeed / 2;
-  extSpeed = extSpeed / 2;
+//  intSpeed = intSpeed / 2;
+//  extSpeed = extSpeed / 2;
+  intSpeed = intSpeed;
+  extSpeed = extSpeed;
 }
 
 void calibrationRunMotor3 ()
@@ -93,3 +95,24 @@ void runAll ()
   }
 }
 
+void runAllTest ()
+{
+  if (timeNow > indexOn)
+  {
+    digitalWrite (step1, HIGH);
+    digitalWrite (step2, HIGH);
+    digitalWrite (step3, HIGH);
+    digitalWrite (step4, HIGH);
+    indexOn = timeNow + st;
+    stepCounter++;
+  }
+
+  if (timeNow > indexOff)
+  {
+    digitalWrite (step1, LOW);
+    digitalWrite (step2, LOW);
+    digitalWrite (step3, LOW);
+    digitalWrite (step4, LOW);
+    indexOff = indexOn + st;
+  }
+}
