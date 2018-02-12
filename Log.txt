@@ -1,0 +1,10 @@
+This is a log from the project
+
+
+Feb 2018 - Second prototype
+  09. Bit Bang Code developed 
+
+Dic 2017 - Second prototype, External library developed code
+Oct 2017 - Second Prototype, two complication system
+Ago 2017 - First prototype
+Jun 2017 - Project starts
