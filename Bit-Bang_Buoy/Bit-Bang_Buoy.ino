@@ -8,10 +8,11 @@ int step3 = 10;
 int dir4 = 11;
 int step4 = 12;
 
-int st = 1000;
+int st = 2000;
 
 //time variables
 double timeNow;
+double timeLast;
 double indexOn;
 double indexOff;
 
@@ -27,7 +28,7 @@ int detectS2 = 425;
 //Calibration variables
   byte cBanner = 0;
 
-  int extSpeed = st*2;
+  int extSpeed = st;
   int intSpeed = extSpeed/20;
 
   byte motorBanner1 = 0;
@@ -51,6 +52,29 @@ int detectS2 = 425;
   double stickOffTime = 2500000;
   double indexStickOff;
 
+  double indexLoop;
+  double loopInterval = 5000000;
+
+  //Wave variables
+  int meanWave = 50;//Percentage extension
+  int wavePeriod = 3000;//Speed in seconds for a cicle
+  int waveSlope = 90;//Shift angle in degrees
+  int waveEntropy = 1;
+
+  int minWavePeriod = 2000;//in millis
+  int maxWavePeriod = 6000;//in millis
+  int minWaveSpeed = 3000;//in micros
+  int maxWaveSpeed = 400;//in micros
+
+  int regExtension;//In degrees
+  int regSpeed;
+  int regSlope;
+
+  int toGoSteps;
+
+  int waveExtension;
+  int waveSpeed;
+
 void setup() 
 {
   Serial.begin (2000000);
@@ -60,12 +84,7 @@ void setup()
 
   timeNow = micros ();
   calibrationRoutine ();
-  int ddd = 9;
-  while (ddd > 0)
-  {
-  twoLevelStepCounter ();
-  ddd--;
-  }
+  stepsLap ();
 }
 
 void loop() 
@@ -73,5 +92,11 @@ void loop()
   //Serial.println ("loop");
   timeNow = micros ();
   runAll ();
+  if (timeNow > indexLoop)
+  {
+    doSomething ();
+    indexLoop = timeNow + loopInterval;
+    Serial.println ("do something");
+  }
 
 }

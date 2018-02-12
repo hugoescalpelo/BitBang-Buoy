@@ -38,10 +38,11 @@ void calibrationRoutine ()
   }
 }
 
-void twoLevelStepCounter ()
+void stepsLap ()
 {
   //st = st/2;
   cBanner = 0;
+  timeLast = micros ();
   timeNow = micros ();
   indexStickOff = timeNow + stickOffTime;
 
@@ -67,35 +68,8 @@ void twoLevelStepCounter ()
     }
   }
   Serial.println (stepCounter);
-
-  //st = st*2;
-  stepCounter = 0;
-
-  cBanner = 0;
-  timeNow = micros ();
-  indexStickOff = timeNow + stickOffTime;
-
-  while (cBanner == 0)
-  {
-    timeNow = micros ();
-    //readAll ();
-    runAllTest ();
-    if (timeNow > indexStickOff)
-    {
-      cBanner = 1;
-    }
-  }
-  cBanner = 0;
-  while (cBanner == 0)
-  {
-    timeNow = micros ();
-    readAll ();
-    runAllTest ();
-    if (dataS1 < detectS1 || dataS2 < detectS2)
-    {
-      cBanner = 1;
-    }
-  }
-  Serial.println (stepCounter);
+  regExtension = 180;//In degrees
+  regSpeed = (timeNow - timeLast) / 1000;//in milliseconds
+  regSlope = 0;//in degrees
 }
 

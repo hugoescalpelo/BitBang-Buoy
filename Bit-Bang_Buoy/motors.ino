@@ -34,8 +34,8 @@ void stop12 ()
 
 void speedCorrect ()
 {
-//  intSpeed = intSpeed / 2;
-//  extSpeed = extSpeed / 2;
+  //  intSpeed = intSpeed / 2;
+  //  extSpeed = extSpeed / 2;
   intSpeed = intSpeed;
   extSpeed = extSpeed;
 }
@@ -114,5 +114,125 @@ void runAllTest ()
     digitalWrite (step3, LOW);
     digitalWrite (step4, LOW);
     indexOff = indexOn + st;
+  }
+}
+
+void fwExtension (int fwx)
+{
+  Serial.print ("fw");
+  Serial.println (abs(waveExtension - regExtension));
+  timeNow = micros ();
+  int indexOnE = timeNow + st;
+  int indexOnE2 = timeNow + (st / 2);
+  int indexOffE = indexOnE + st;
+  int indexOffE2 = indexOnE2 + (st / 2);
+  Serial.print (st);
+  Serial.print (" ");
+  Serial.print (timeNow);
+  Serial.print (" ");
+  Serial.print (indexOnE);
+  Serial.print (" ");
+  Serial.print (indexOnE2);
+  Serial.print (" ");
+  Serial.print (indexOffE);
+  Serial.print (" ");
+  Serial.println (indexOffE2);
+
+  toGoSteps = getSteps (fwx);
+
+  while (toGoSteps > 1)
+  {
+    timeNow = micros ();
+    //readAll ();
+
+    if (timeNow > indexOnE)
+    {
+      digitalWrite (step1, HIGH);
+      digitalWrite (step2, HIGH);
+      indexOnE = timeNow + st;
+      toGoSteps--;
+    }
+    if (timeNow > indexOffE)
+    {
+      digitalWrite (step1, LOW);
+      digitalWrite (step2, LOW);
+      indexOffE = indexOnE + st;
+    }
+
+    if (timeNow > indexOnE2)
+    {
+      digitalWrite (step3, HIGH);
+      digitalWrite (step4, HIGH);
+      indexOnE2 = timeNow + (st / 2);
+    }
+    if (timeNow > indexOffE2)
+    {
+      digitalWrite (step3, LOW);
+      digitalWrite (step4, LOW);
+      indexOffE2 = indexOnE2 + (st / 2);
+    }
+  }
+}
+
+int getSteps (int stg)
+{
+  int fracc = stepCounter / 360;
+  return (stg * fracc);
+}
+
+void rwExtension (int rwx)
+{
+  Serial.print ("rw ");
+  Serial.println (abs(waveExtension - regExtension));
+  timeNow = micros ();
+  int indexOnE = timeNow + st;
+  int indexOnE2 = timeNow + (st * 2);
+  int indexOffE = indexOnE + st;
+  int indexOffE2 = indexOnE2 + (st * 2);
+  Serial.print (st);
+  Serial.print (" ");
+  Serial.print (timeNow);
+  Serial.print (" ");
+  Serial.print (indexOnE);
+  Serial.print (" ");
+  Serial.print (indexOnE2);
+  Serial.print (" ");
+  Serial.print (indexOffE);
+  Serial.print (" ");
+  Serial.println (indexOffE2);
+
+  toGoSteps = getSteps (rwx);
+
+  while (toGoSteps > 1)
+  {
+    timeNow = micros ();
+    //readAll ();
+
+    if (timeNow > indexOnE)
+    {
+      digitalWrite (step2, HIGH);
+      digitalWrite (step4, HIGH);
+      indexOnE = timeNow + st;
+      toGoSteps--;
+    }
+    if (timeNow > indexOffE)
+    {
+      digitalWrite (step2, LOW);
+      digitalWrite (step4, LOW);
+      indexOffE = indexOnE + st;
+    }
+
+    if (timeNow > indexOnE2)
+    {
+      digitalWrite (step1, HIGH);
+      digitalWrite (step3, HIGH);
+      indexOnE2 = timeNow + (st * 2);
+    }
+    if (timeNow > indexOffE2)
+    {
+      digitalWrite (step1, LOW);
+      digitalWrite (step3, LOW);
+      indexOffE2 = indexOnE2 + (st * 2);
+    }
   }
 }
