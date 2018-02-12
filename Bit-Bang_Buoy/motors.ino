@@ -245,3 +245,126 @@ void rwExtension (int rwx)
   }
   Serial.println ("Done rw");
 }
+
+void fwSlope (int fws)
+{
+  Serial.print ("fws ");
+  Serial.println (fws);
+  timeNow = micros ();
+  long indexOnE = timeNow + st;
+  long indexOnE2 = timeNow + (st / 2);
+  long indexOffE = indexOnE + st;
+  long indexOffE2 = indexOnE2 + (st / 2);
+  Serial.print (st);
+  Serial.print (" ");
+  Serial.print (timeNow);
+  Serial.print (" ");
+  Serial.print (indexOnE);
+  Serial.print (" ");
+  Serial.print (indexOnE2);
+  Serial.print (" ");
+  Serial.print (indexOffE);
+  Serial.print (" ");
+  Serial.println (indexOffE2);
+
+  toGoSteps = getSteps (fws)*1.5;
+  Serial.print ("To go steps ");
+  Serial.println (toGoSteps);
+
+  while (toGoSteps > 1)
+  {
+    timeNow = micros ();
+    //readAll ();
+
+    if (timeNow > indexOnE)
+    {
+      digitalWrite (step1, HIGH);
+      digitalWrite (step2, HIGH);
+      indexOnE = timeNow + st;
+    }
+    if (timeNow > indexOffE)
+    {
+      digitalWrite (step1, LOW);
+      digitalWrite (step2, LOW);
+      indexOffE = indexOnE + st;
+    }
+
+    if (timeNow > indexOnE2)
+    {
+      digitalWrite (step3, HIGH);
+      digitalWrite (step4, HIGH);
+      indexOnE2 = timeNow + (st / 3);
+      toGoSteps--;
+      //Serial.println (toGoSteps);
+    }
+    if (timeNow > indexOffE2)
+    {
+      digitalWrite (step3, LOW);
+      digitalWrite (step4, LOW);
+      indexOffE2 = indexOnE2 + (st / 3);
+    }
+  }
+  Serial.println ("Done fws");
+}
+
+void rwSlope (int rws)
+{
+  Serial.print ("rws ");
+  Serial.println (rws);
+  timeNow = micros ();
+  long indexOnE = timeNow + st;
+  long indexOnE2 = timeNow + (st * 2);
+  long indexOffE = indexOnE + st;
+  long indexOffE2 = indexOnE2 + (st * 2);
+  Serial.print (st);
+  Serial.print (" ");
+  Serial.print (timeNow);
+  Serial.print (" ");
+  Serial.print (indexOnE);
+  Serial.print (" ");
+  Serial.print (indexOnE2);
+  Serial.print (" ");
+  Serial.print (indexOffE);
+  Serial.print (" ");
+  Serial.println (indexOffE2);
+
+  toGoSteps = getSteps (rws)*2;
+  Serial.print ("To go steps ");
+  Serial.println (toGoSteps);
+
+  while (toGoSteps > 1)
+  {
+    timeNow = micros ();
+    //readAll ();
+    
+    if (timeNow > indexOnE)
+    {
+      digitalWrite (step1, HIGH);
+      digitalWrite (step2, HIGH);
+      indexOnE = timeNow + st;
+      toGoSteps--;
+      //Serial.println (toGoSteps);
+    }
+    if (timeNow > indexOffE)
+    {
+      digitalWrite (step1, LOW);
+      digitalWrite (step2, LOW);
+      indexOffE = indexOnE + st;
+    }
+
+    if (timeNow > indexOnE2)
+    {
+      digitalWrite (step3, HIGH);
+      digitalWrite (step4, HIGH);
+      indexOnE2 = timeNow + (st * 2);
+    }
+    if (timeNow > indexOffE2)
+    {
+      digitalWrite (step3, LOW);
+      digitalWrite (step4, LOW);
+      indexOffE2 = indexOnE2 + (st * 2);
+    }
+  }
+  Serial.println ("Done rws");
+}
+

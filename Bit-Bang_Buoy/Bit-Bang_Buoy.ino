@@ -79,6 +79,7 @@ int detectS2 = 424;
   bool fg = 0;
   double timeNext;
   bool gf = 0;
+  bool sf = 0;
 
 void setup() 
 {
@@ -116,6 +117,15 @@ void loop()
     meanWave = 99;
     doOneThing ();
     gf = 1;
+    timeNext = micros () + 5000000;
+  }
+
+  if (timeNow > timeNext && sf == 0)
+  {
+    Serial.println ("Change waveSlope");
+    waveSlope = 90;
+    doOneThing ();
+    sf = 1;
   }
 
   //For random demonstration

@@ -18,7 +18,7 @@ void getWaves (byte y)
     case 1://constant
       meanWave = 3;//Percentage extension
       wavePeriod = 2500;//Speed
-      waveSlope = 90;//Shift angle in degrees
+      waveSlope = 180;//Shift angle in degrees
       waveEntropy = 1;
       printCaseOne ();
       break;
@@ -53,7 +53,7 @@ void waveDriver ()
 {
   syncSpeed ();
   syncExtension ();  
-  //syncSlope
+  syncSlope ();
 }
 
 
@@ -82,5 +82,22 @@ void syncSpeed ()
   Serial.println (regSpeed);
   st = waveSpeed;
   regSpeed = waveSpeed;
+}
+
+void syncSlope ()
+{
+  Serial.print ("waveSlope ");
+  Serial.print (waveSlope);
+  Serial.print (" regSlope");
+  Serial.println (regSlope);
+  if (waveSlope > regSlope)
+  {
+    fwSlope (waveSlope - regSlope);//Motors Tab. We pass the angle difference
+  }
+  if (waveSlope < regSlope)
+  {
+    rwSlope (regSlope - waveSlope);//Motors Tab
+  }
+  regSlope = waveSlope;
 }
 
