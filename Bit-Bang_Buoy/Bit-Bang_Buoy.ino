@@ -1,3 +1,33 @@
+/*
+ * Ivan Abreu Studio.
+ * 
+ * 12/2/2018. México City.
+ * 
+ * This code drives a mechanism that simulate sea waves, it has 4
+ * stepper motors with TB6600 micro stepper driver.
+ * 
+ * The code was rewriten to work with no libraries because they
+ * fail at guarantee synchronicity and precise angle control.
+ * 
+ * This code use bitbang control, which means it works with HIGH-LOW
+ * toggle on every driver pin. Time is controled independently with
+ * micros function.
+ * 
+ * This version its kind of half way. Next topics are intendeed to be developed:
+ * 
+ * -Golden combinations
+ * -Manual calibration command
+ * -Always calibrating routine
+ * -Real time data extract from WW3 algorithm
+ * 
+ * Team:
+ * 
+ * Iván Abreu Ochoa
+ * Malitzin Cortez
+ * Beto Olguin
+ * Hugo Vargas
+ */
+
 //Driver pins
 int dir1 = 5;
 int step1 = 6;
