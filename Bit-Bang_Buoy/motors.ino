@@ -138,7 +138,7 @@ void fwExtension (int fwx)
   Serial.print (" ");
   Serial.println (indexOffE2);
 
-  toGoSteps = getSteps (fwx)*1.25;
+  toGoSteps = getSteps (fwx)*1.5;
   Serial.print ("To go steps ");
   Serial.println (toGoSteps);
 
@@ -164,15 +164,15 @@ void fwExtension (int fwx)
     {
       digitalWrite (step2, HIGH);
       digitalWrite (step4, HIGH);
-      indexOnE2 = timeNow + (st / 2);
+      indexOnE2 = timeNow + (st / 3);
       toGoSteps--;
-      Serial.println (toGoSteps);
+      //Serial.println (toGoSteps);
     }
     if (timeNow > indexOffE2)
     {
       digitalWrite (step2, LOW);
       digitalWrite (step4, LOW);
-      indexOffE2 = indexOnE2 + (st / 2);
+      indexOffE2 = indexOnE2 + (st / 3);
     }
   }
   Serial.println ("Done fw");

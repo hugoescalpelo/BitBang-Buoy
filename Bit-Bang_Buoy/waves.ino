@@ -52,8 +52,7 @@ void waveRender ()
 void waveDriver ()
 {
   syncSpeed ();
-  syncExtension ();
-  
+  syncExtension ();  
   //syncSlope
 }
 
@@ -82,5 +81,6 @@ void syncSpeed ()
   Serial.print (" regSpeed ");
   Serial.println (regSpeed);
   st = waveSpeed;
+  regSpeed = waveSpeed;
 }
 

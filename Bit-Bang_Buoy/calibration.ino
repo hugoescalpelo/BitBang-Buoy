@@ -70,7 +70,7 @@ void stepsLap ()
   Serial.println (stepCounter);//StepCounter is increased in runAllTest. This count is needed to keep precision in shift angles
   //Status variables are setted
   regExtension = 180;//In degrees
-  regSpeed = (timeNow - timeLast) / 1000;//in milliseconds
+  regSpeed = st; // WTF with me ->(timeNow - timeLast) / 1000;//in milliseconds
   regSlope = 0;//in degrees
 }
 
