@@ -7,7 +7,6 @@ void doSomething () //For random demonstration
 
 void doOneThing ()
 {
-  getWaves (1);//This tab
   waveRender ();
   waveDriver ();
 }

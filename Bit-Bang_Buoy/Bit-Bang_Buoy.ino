@@ -77,6 +77,8 @@ int detectS2 = 424;
 
   //Cheesy variables
   bool fg = 0;
+  double timeNext;
+  bool gf = 0;
 
 void setup() 
 {
@@ -91,6 +93,7 @@ void setup()
   Serial.println ("In stepsLap");
   stepsLap ();//Calibration tab
   Serial.println ("out of stepsLap");
+  getWaves (1);//Waves tab
 }
 
 void loop() 
@@ -101,8 +104,18 @@ void loop()
   runAll ();
   if (fg == 0)
   {
+    Serial.println ("do one thing");
     doOneThing ();
     fg = 1;
+    timeNext = micros () + 5000000;
+  }
+
+  if (timeNow > timeNext && gf == 0)
+  {
+    Serial.println ("Change meanwave");
+    meanWave = 90;
+    doOneThing ();
+    gf = 1;
   }
 
   //For random demonstration

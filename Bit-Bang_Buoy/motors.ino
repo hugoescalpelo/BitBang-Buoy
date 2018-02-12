@@ -119,13 +119,13 @@ void runAllTest ()
 
 void fwExtension (int fwx)
 {
-  Serial.print ("fw");
+  Serial.print ("fw ");
   Serial.println (fwx);
   timeNow = micros ();
-  int indexOnE = timeNow + st;
-  int indexOnE2 = timeNow + (st / 2);
-  int indexOffE = indexOnE + st;
-  int indexOffE2 = indexOnE2 + (st / 2);
+  long indexOnE = timeNow + st;
+  long indexOnE2 = timeNow + (st / 2);
+  long indexOffE = indexOnE + st;
+  long indexOffE2 = indexOnE2 + (st / 2);
   Serial.print (st);
   Serial.print (" ");
   Serial.print (timeNow);
@@ -139,6 +139,8 @@ void fwExtension (int fwx)
   Serial.println (indexOffE2);
 
   toGoSteps = getSteps (fwx);
+  Serial.print ("To go steps ");
+  Serial.println (toGoSteps);
 
   while (toGoSteps > 1)
   {
@@ -148,30 +150,32 @@ void fwExtension (int fwx)
     if (timeNow > indexOnE)
     {
       digitalWrite (step1, HIGH);
-      digitalWrite (step2, HIGH);
+      digitalWrite (step3, HIGH);
       indexOnE = timeNow + st;
       toGoSteps--;
+      Serial.println (toGoSteps);
     }
     if (timeNow > indexOffE)
     {
       digitalWrite (step1, LOW);
-      digitalWrite (step2, LOW);
+      digitalWrite (step3, LOW);
       indexOffE = indexOnE + st;
     }
 
     if (timeNow > indexOnE2)
     {
-      digitalWrite (step3, HIGH);
+      digitalWrite (step2, HIGH);
       digitalWrite (step4, HIGH);
       indexOnE2 = timeNow + (st / 2);
     }
     if (timeNow > indexOffE2)
     {
-      digitalWrite (step3, LOW);
+      digitalWrite (step2, LOW);
       digitalWrite (step4, LOW);
       indexOffE2 = indexOnE2 + (st / 2);
     }
   }
+  Serial.println ("Done fw");
 }
 
 int getSteps (int stg)//stg stands for steps to go
@@ -239,5 +243,5 @@ void rwExtension (int rwx)
       indexOffE2 = indexOnE2 + (st * 2);
     }
   }
-  Serial.println ("Done");
+  Serial.println ("Done rw");
 }
