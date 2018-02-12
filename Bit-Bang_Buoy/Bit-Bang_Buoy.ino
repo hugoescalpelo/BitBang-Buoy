@@ -23,7 +23,7 @@ int detectS1 = 421;
 
 int pinS2 = 4;
 int dataS2 = 0;
-int detectS2 = 425;
+int detectS2 = 424;
 
 //Calibration variables
   byte cBanner = 0;
@@ -49,10 +49,10 @@ int detectS2 = 425;
 
   int stepCounter = 0;
 
-  double stickOffTime = 2500000;
+  double stickOffTime = 2500000;//Time of ahead start, needed to begin a run without misreading hall-effect sensor as a fake positive
   double indexStickOff;
 
-  double indexLoop;
+  double indexLoop;//Random demonstration variables
   double loopInterval = 5000000;
 
   //Wave variables
@@ -75,28 +75,42 @@ int detectS2 = 425;
   int waveExtension;
   int waveSpeed;
 
+  //Cheesy variables
+  bool fg = 0;
+
 void setup() 
 {
   Serial.begin (2000000);
   Serial.println ("inicio");
-  setModes ();
-  setInitials ();
+
+  setModes (); //Pins tab
+  setInitials (); //Pins tab
 
   timeNow = micros ();
-  calibrationRoutine ();
-  stepsLap ();
+  calibrationRoutine ();//Calibration tab
+  Serial.println ("In stepsLap");
+  stepsLap ();//Calibration tab
+  Serial.println ("out of stepsLap");
 }
 
 void loop() 
 {
   //Serial.println ("loop");
   timeNow = micros ();
+  
   runAll ();
-  if (timeNow > indexLoop)
+  if (fg == 0)
   {
-    doSomething ();
-    indexLoop = timeNow + loopInterval;
-    Serial.println ("do something");
+    doOneThing ();
+    fg = 1;
   }
+
+  //For random demonstration
+//  if (timeNow > indexLoop)
+//  {
+//    doSomething ();//Waves tab
+//    indexLoop = timeNow + loopInterval;
+//    Serial.println ("do something");
+//  }
 
 }

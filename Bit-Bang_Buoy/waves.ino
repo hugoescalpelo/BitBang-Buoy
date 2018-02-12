@@ -1,6 +1,13 @@
-void doSomething ()
+void doSomething () //For random demonstration
 {
-  getWaves (2);
+  getWaves (2);//This tab
+  waveRender ();
+  waveDriver ();
+}
+
+void doOneThing ()
+{
+  getWaves (1);//This tab
   waveRender ();
   waveDriver ();
 }
@@ -10,12 +17,11 @@ void getWaves (byte y)
   switch (y)
   {
     case 1://constant
-      meanWave = meanWave;//Percentage extension
-      wavePeriod = wavePeriod;//Speed
-      waveSlope = waveSlope;//Shift angle in degrees
-      waveEntropy = waveEntropy;
-      Serial.print ("meanWave ");
-      Serial.println (meanWave);
+      meanWave = 3;//Percentage extension
+      wavePeriod = 3000;//Speed
+      waveSlope = 90;//Shift angle in degrees
+      waveEntropy = 1;
+      printCaseOne ();
       break;
     case 2://Random
       meanWave = random (0, 100);//In pecentage of extension
@@ -42,8 +48,6 @@ void waveRender ()
   waveSpeed = map (wavePeriod, minWavePeriod, maxWavePeriod, minWaveSpeed, maxWaveSpeed);//We expect a linear relation between speed and steps in microsecodns
   //waveSlope = waveSlope;//no need changes since the input is in degrees
 
-  Serial.print ("wave angle ");
-  Serial.println (waveExtension);
 }
 
 void waveDriver ()
@@ -56,15 +60,17 @@ void waveDriver ()
 
 void syncExtension ()
 {
+  Serial.print ("waveExtension ");
+  Serial.print (waveExtension);
+  Serial.print (" regExtension");
+  Serial.println (regExtension);
   if (waveExtension > regExtension)
   {
-    
-    fwExtension (abs(waveExtension - regExtension));//We pass the angle difference
+    fwExtension (waveExtension - regExtension);//Motors Tab. We pass the angle difference
   }
   if (waveExtension < regExtension)
   {
-    
-    rwExtension (abs(waveExtension - regExtension));
+    rwExtension (regExtension - waveExtension);//Motors Tab
   }
   regExtension = waveExtension;
 }

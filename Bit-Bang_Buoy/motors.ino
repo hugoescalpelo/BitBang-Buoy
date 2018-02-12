@@ -32,7 +32,7 @@ void stop12 ()
   digitalWrite (step2, LOW);
 }
 
-void speedCorrect ()
+void speedCorrect ()//Not needed in newer versions
 {
   //  intSpeed = intSpeed / 2;
   //  extSpeed = extSpeed / 2;
@@ -120,7 +120,7 @@ void runAllTest ()
 void fwExtension (int fwx)
 {
   Serial.print ("fw");
-  Serial.println (abs(waveExtension - regExtension));
+  Serial.println (fwx);
   timeNow = micros ();
   int indexOnE = timeNow + st;
   int indexOnE2 = timeNow + (st / 2);
@@ -174,21 +174,22 @@ void fwExtension (int fwx)
   }
 }
 
-int getSteps (int stg)
+int getSteps (int stg)//stg stands for steps to go
 {
   int fracc = stepCounter / 360;
-  return (stg * fracc);
+  int tgs = stg * fracc;//tgs stands for to go steps
+  return (tgs);
 }
 
 void rwExtension (int rwx)
 {
   Serial.print ("rw ");
-  Serial.println (abs(waveExtension - regExtension));
+  Serial.println (rwx);
   timeNow = micros ();
-  int indexOnE = timeNow + st;
-  int indexOnE2 = timeNow + (st * 2);
-  int indexOffE = indexOnE + st;
-  int indexOffE2 = indexOnE2 + (st * 2);
+  long indexOnE = timeNow + st;
+  long indexOnE2 = timeNow + (st * 2);
+  long indexOffE = indexOnE + st;
+  long indexOffE2 = indexOnE2 + (st * 2);
   Serial.print (st);
   Serial.print (" ");
   Serial.print (timeNow);
@@ -201,38 +202,42 @@ void rwExtension (int rwx)
   Serial.print (" ");
   Serial.println (indexOffE2);
 
-  toGoSteps = getSteps (rwx);
+  toGoSteps = getSteps (rwx)*2;
+  Serial.print ("To go steps ");
+  Serial.println (toGoSteps);
 
   while (toGoSteps > 1)
   {
     timeNow = micros ();
     //readAll ();
-
+    
     if (timeNow > indexOnE)
     {
-      digitalWrite (step2, HIGH);
-      digitalWrite (step4, HIGH);
+      digitalWrite (step1, HIGH);
+      digitalWrite (step3, HIGH);
       indexOnE = timeNow + st;
       toGoSteps--;
+      //Serial.println (toGoSteps);
     }
     if (timeNow > indexOffE)
     {
-      digitalWrite (step2, LOW);
-      digitalWrite (step4, LOW);
+      digitalWrite (step1, LOW);
+      digitalWrite (step3, LOW);
       indexOffE = indexOnE + st;
     }
 
     if (timeNow > indexOnE2)
     {
-      digitalWrite (step1, HIGH);
-      digitalWrite (step3, HIGH);
+      digitalWrite (step2, HIGH);
+      digitalWrite (step4, HIGH);
       indexOnE2 = timeNow + (st * 2);
     }
     if (timeNow > indexOffE2)
     {
-      digitalWrite (step1, LOW);
-      digitalWrite (step3, LOW);
+      digitalWrite (step2, LOW);
+      digitalWrite (step4, LOW);
       indexOffE2 = indexOnE2 + (st * 2);
     }
   }
+  Serial.println ("Done");
 }
