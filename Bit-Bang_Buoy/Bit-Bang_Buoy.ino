@@ -1,7 +1,7 @@
 /*
  * Ivan Abreu Studio.
  * 
- * 12/2/2018. México City.
+ * 21/2/2018. México City.
  * 
  * This code drives a mechanism that simulate sea waves, it has 4
  * stepper motors with TB6600 micro stepper driver.
@@ -12,6 +12,20 @@
  * This code use bitbang control, which means it works with HIGH-LOW
  * toggle on every driver pin. Time is controled independently with
  * micros function.
+ * 
+ * A golden combo generator was adder. It consist on a system that receives
+ * only a 3-digit number via serial port. Hundreds specify the speed of
+ * the system in a fixed windows from 1500 to 3000 milliseconds per step.
+ * Tents specify the extension of every arm, which goes from 0 to 100 percent
+ * extension. Ones determines the slope between arms in a fixed range from
+ * 30 to 120 degree relatives to de sensor position. A calculation is
+ * performed in order to get the numbers every time with memory saving
+ * purposes.
+ * 
+ * Changelog
+ * 
+ * V9.1 Golden path generator added
+ * V9.0 BitBang asynchronous internal driver added
  * 
  * This version its kind of half way. Next topics are intendeed to be developed:
  * 
@@ -111,9 +125,9 @@ int detectS2 = 424;
   bool gf = 0;
   bool sf = 0;
 
-  int ext;
-  int spp;
-  int slp;
+  int ext;//Received extension
+  int spp;//Received Speed
+  int slp;//Received Slope
 
 void setup() 
 {
@@ -138,11 +152,17 @@ void loop()
   runAll ();
   if (Serial.available () > 0)
   {
-    ext = Serial.parseInt ();
-    spp = Serial.parseInt ();
-    slp = Serial.parseInt ();
+    int mid = Serial.parseInt (); //Catch a number
+    Serial.println ();
+    Serial.println (mid);
+    Serial.println ();
 
-    Serial.println (":)");
+    //Golden combo generator. It needs 3 digit number via serial
+    //works from 0 to 999
+
+    spp = map (((mid / 100) % 10), 1, 9, 3000, 1500);//Hundreds
+    ext = map (((mid / 10) % 10), 1, 9, 0, 100);//Tens
+    slp = map ((mid % 10), 1, 9, 30, 120);//Ones
 
     doThisThing();
   }

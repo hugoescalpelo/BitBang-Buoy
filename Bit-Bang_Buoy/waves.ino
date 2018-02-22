@@ -39,9 +39,9 @@ void getWaves (byte y)
       //get from wave watch 3 algorithm
       break;
     case 4://Serial
-      meanWave = ext;
-      wavePeriod = spp;
-      waveSlope = slp;    
+      meanWave = ext;//extension
+      wavePeriod = spp;//Speed
+      waveSlope = slp;//Slope
     default:
       meanWave = meanWave;//Percentage extension
       wavePeriod = wavePeriod;//Speed
