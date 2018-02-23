@@ -23,9 +23,9 @@ void getWaves (byte y)
   switch (y)
   {
     case 1://constant
-      meanWave = 3;//Percentage extension
+      meanWave = 1;//Percentage extension
       wavePeriod = 2500;//Speed
-      waveSlope = 180;//Shift angle in degrees
+      waveSlope = 45;//Shift angle in degrees
       waveEntropy = 1;
       printCaseOne ();
       break;
@@ -70,9 +70,10 @@ void waveDriver ()
 
 void syncExtension ()
 {
-  Serial.print ("waveExtension ");
+  Serial.println ("Syncing waveExtension");
+  Serial.print ("Target waveExtension ");
   Serial.print (waveExtension);
-  Serial.print (" regExtension");
+  Serial.print (" Last waveExtension (regExtension) ");
   Serial.println (regExtension);
   if (waveExtension > regExtension)
   {
@@ -87,9 +88,10 @@ void syncExtension ()
 
 void syncSpeed ()
 {
-  Serial.print ("waveSpeed ");
+  Serial.println ("Syncing waveSpeed");
+  Serial.print ("Target waveSpeed ");
   Serial.print (waveSpeed);
-  Serial.print (" regSpeed ");
+  Serial.print (" Last waveSpeed (regSpeed) ");
   Serial.println (regSpeed);
   st = waveSpeed;
   regSpeed = waveSpeed;
@@ -97,9 +99,10 @@ void syncSpeed ()
 
 void syncSlope ()
 {
-  Serial.print ("waveSlope ");
+  Serial.println ("Syncing waveSlope");
+  Serial.print ("Target waveSlope ");
   Serial.print (waveSlope);
-  Serial.print (" regSlope");
+  Serial.print (" Last waveSlope(regSlope)");
   Serial.println (regSlope);
   if (waveSlope > regSlope)
   {

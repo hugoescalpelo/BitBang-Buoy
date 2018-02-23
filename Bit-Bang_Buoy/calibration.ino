@@ -67,9 +67,10 @@ void stepsLap ()
       cBanner = 1;
     }
   }
+  Serial.print ("Steps per lap ");
   Serial.println (stepCounter);//StepCounter is increased in runAllTest. This count is needed to keep precision in shift angles
   //Status variables are setted
-  regExtension = 180;//In degrees
+  regExtension = 0;//In degrees
   regSpeed = st; // WTF with me ->(timeNow - timeLast) / 1000;//in milliseconds
   regSlope = 0;//in degrees
 }
@@ -85,6 +86,7 @@ void testSequence ()
     if (fg == 0)
     {
       Serial.println ("do one thing");
+      wavePeriod = 1900;
       doOneThing ();
       fg = 1;
       timeNext = micros () + 5000000;
@@ -93,7 +95,7 @@ void testSequence ()
     if (timeNow > timeNext && gf == 0)
     {
       Serial.println ("Change meanwave");
-      meanWave = 99;
+      meanWave = 50;
       doOneThing ();
       gf = 1;
       timeNext = micros () + 5000000;
@@ -102,7 +104,7 @@ void testSequence ()
     if (timeNow > timeNext && sf == 0)
     {
       Serial.println ("Change waveSlope");
-      waveSlope = 90;
+      waveSlope = 45;
       doOneThing ();
       sf = 1;
       od = 1;

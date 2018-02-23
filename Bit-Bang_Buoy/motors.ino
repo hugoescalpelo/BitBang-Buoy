@@ -119,24 +119,14 @@ void runAllTest ()
 
 void fwExtension (int fwx)
 {
-  Serial.print ("fw ");
-  Serial.println (fwx);
+  Serial.print ("Going fordward extension ");
+  Serial.print (fwx);
+  Serial.println ("°");
   timeNow = micros ();
   long indexOnE = timeNow + st;
   long indexOnE2 = timeNow + (st / 2);
   long indexOffE = indexOnE + st;
   long indexOffE2 = indexOnE2 + (st / 2);
-  Serial.print (st);
-  Serial.print (" ");
-  Serial.print (timeNow);
-  Serial.print (" ");
-  Serial.print (indexOnE);
-  Serial.print (" ");
-  Serial.print (indexOnE2);
-  Serial.print (" ");
-  Serial.print (indexOffE);
-  Serial.print (" ");
-  Serial.println (indexOffE2);
 
   toGoSteps = getSteps (fwx)*1.5;
   Serial.print ("To go steps ");
@@ -175,7 +165,8 @@ void fwExtension (int fwx)
       indexOffE2 = indexOnE2 + (st / 3);
     }
   }
-  Serial.println ("Done fw");
+  Serial.println ("Done forward extension");
+  Serial.println ();
 }
 
 int getSteps (int stg)//stg stands for steps to go
@@ -187,24 +178,14 @@ int getSteps (int stg)//stg stands for steps to go
 
 void rwExtension (int rwx)
 {
-  Serial.print ("rw ");
-  Serial.println (rwx);
+  Serial.print ("GOing rewind extension ");
+  Serial.print (rwx);
+  Serial.println ("°");
   timeNow = micros ();
   long indexOnE = timeNow + st;
   long indexOnE2 = timeNow + (st * 2);
   long indexOffE = indexOnE + st;
   long indexOffE2 = indexOnE2 + (st * 2);
-  Serial.print (st);
-  Serial.print (" ");
-  Serial.print (timeNow);
-  Serial.print (" ");
-  Serial.print (indexOnE);
-  Serial.print (" ");
-  Serial.print (indexOnE2);
-  Serial.print (" ");
-  Serial.print (indexOffE);
-  Serial.print (" ");
-  Serial.println (indexOffE2);
 
   toGoSteps = getSteps (rwx)*2;
   Serial.print ("To go steps ");
@@ -243,29 +224,20 @@ void rwExtension (int rwx)
       indexOffE2 = indexOnE2 + (st * 2);
     }
   }
-  Serial.println ("Done rw");
+  Serial.println ("Done rewind extension");
+  Serial.println ();
 }
 
 void fwSlope (int fws)
 {
-  Serial.print ("fws ");
-  Serial.println (fws);
+  Serial.print ("Going forward slope ");
+  Serial.print (fws);
+  Serial.println ("°");
   timeNow = micros ();
   long indexOnE = timeNow + st;
   long indexOnE2 = timeNow + (st / 2);
   long indexOffE = indexOnE + st;
   long indexOffE2 = indexOnE2 + (st / 2);
-  Serial.print (st);
-  Serial.print (" ");
-  Serial.print (timeNow);
-  Serial.print (" ");
-  Serial.print (indexOnE);
-  Serial.print (" ");
-  Serial.print (indexOnE2);
-  Serial.print (" ");
-  Serial.print (indexOffE);
-  Serial.print (" ");
-  Serial.println (indexOffE2);
 
   toGoSteps = getSteps (fws)*1.5;
   Serial.print ("To go steps ");
@@ -304,29 +276,20 @@ void fwSlope (int fws)
       indexOffE2 = indexOnE2 + (st / 3);
     }
   }
-  Serial.println ("Done fws");
+  Serial.println ("Done forward slope");
+  Serial.println ();
 }
 
 void rwSlope (int rws)
 {
-  Serial.print ("rws ");
-  Serial.println (rws);
+  Serial.print ("Going rewind slope ");
+  Serial.print (rws);
+  Serial.println ("°");
   timeNow = micros ();
   long indexOnE = timeNow + st;
   long indexOnE2 = timeNow + (st * 2);
   long indexOffE = indexOnE + st;
   long indexOffE2 = indexOnE2 + (st * 2);
-  Serial.print (st);
-  Serial.print (" ");
-  Serial.print (timeNow);
-  Serial.print (" ");
-  Serial.print (indexOnE);
-  Serial.print (" ");
-  Serial.print (indexOnE2);
-  Serial.print (" ");
-  Serial.print (indexOffE);
-  Serial.print (" ");
-  Serial.println (indexOffE2);
 
   toGoSteps = getSteps (rws)*2;
   Serial.print ("To go steps ");
@@ -365,6 +328,7 @@ void rwSlope (int rws)
       indexOffE2 = indexOnE2 + (st * 2);
     }
   }
-  Serial.println ("Done rws");
+  Serial.println ("Done rewind slope");
+  Serial.println ();
 }
 
