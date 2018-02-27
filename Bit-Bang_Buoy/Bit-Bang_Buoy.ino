@@ -157,23 +157,6 @@ void loop()
 
     if (mid == 1500)
     {
-
-////Calibration variables
-//
-//double indexRead;
-//double readInterval = 20000;//twenty times per second
-//
-//double indexOnExt = timeNow + extSpeed;
-//double indexOffExt = indexOnExt + extSpeed;
-//double indexOnInt = timeNow + intSpeed;
-//double indexOffInt = indexOnInt + intSpeed;
-//
-//double indexOnExt2 = timeNow + extSpeed;
-//double indexOffExt2 = indexOnExt2 + extSpeed;
-//double indexOnInt2 = timeNow + intSpeed;
-//double indexOffInt2 = indexOnInt2 + intSpeed;
-//
-//int stepCounter = 0;
       
       st = 2000;
       extSpeed = st;
