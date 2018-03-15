@@ -165,6 +165,7 @@
 <dimension x1="-6.35" y1="80.01" x2="-6.35" y2="-5.08" x3="-6.985" y3="37.465" textsize="1.778" layer="47"/>
 <dimension x1="-5.715" y1="-5.715" x2="75.565" y2="-5.715" x3="34.925" y3="-6.35" textsize="1.778" layer="47"/>
 <wire x1="50.8" y1="43.815" x2="65.405" y2="43.815" width="0.254" layer="49"/>
+<wire x1="45.085" y1="59.69" x2="54.61" y2="59.69" width="0.254" layer="49"/>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
@@ -1987,6 +1988,12 @@ design rules under a new name.</description>
 </signal>
 <signal name="N$2">
 <via x="65.405" y="43.815" extent="1-16" drill="0.6" diameter="2.54"/>
+</signal>
+<signal name="N$3">
+<via x="45.085" y="59.69" extent="1-16" drill="0.6" diameter="2.54"/>
+</signal>
+<signal name="N$18">
+<via x="54.61" y="59.69" extent="1-16" drill="0.6" diameter="2.54"/>
 </signal>
 </signals>
 </board>
