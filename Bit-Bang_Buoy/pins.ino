@@ -12,9 +12,9 @@ void setModes ()
 
 void setInitials ()
 {
-  digitalWrite (dir1, LOW);
+  digitalWrite (dir1, HIGH);
   digitalWrite (step1, LOW);
-  digitalWrite (dir2, LOW);
+  digitalWrite (dir2, HIGH);
   digitalWrite (step2, LOW);
   digitalWrite (dir3, HIGH);
   digitalWrite (step3, LOW);

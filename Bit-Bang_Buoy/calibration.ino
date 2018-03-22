@@ -19,12 +19,12 @@ void calibrationRoutine ()
       //speedCorrect ();//Motors tab. Not needed in newer versions
     }
 
-    if (dataS2 > detectS2 && motorBanner2 == 0)
+    if (dataS2 < detectS2 && motorBanner2 == 0)
     {
       calibrationRunMotor3 ();//Motors tab
       calibrationRunMotor4 ();
     }
-    else if (dataS2 < detectS2 && motorBanner2 == 0)
+    else if (dataS2 > detectS2 && motorBanner2 == 0)
     {
       motorBanner2 = 1;
       stop34 ();//Motors tab
@@ -62,7 +62,7 @@ void stepsLap ()
     timeNow = micros ();
     readAll ();//Sensors tab
     runAllTest ();//Motors tab
-    if (dataS1 < detectS1 || dataS2 < detectS2)
+    if (dataS1 < detectS1 || dataS2 > detectS2)
     {
       cBanner = 1;
     }
@@ -86,7 +86,7 @@ void testSequence ()
     if (fg == 0)
     {
       Serial.println ("do one thing");
-      wavePeriod = 1900;
+      wavePeriod = 4900;
       doOneThing ();
       fg = 1;
       timeNext = micros () + 5000000;

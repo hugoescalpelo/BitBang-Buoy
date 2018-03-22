@@ -1,7 +1,7 @@
 /*
    Ivan Abreu Studio.
 
-   21/2/2018. México City.
+   21/3/2018. México City.
 
    This code drives a mechanism that simulate sea waves, it has 4
    stepper motors with TB6600 micro stepper driver.
@@ -24,15 +24,16 @@
 
    Changelog
 
+   V9.1.2 pinout fixed to BT version
+   V9.1.1 Manual calibration command added
    V9.1 Golden path generator added
    V9.0 BitBang asynchronous internal driver added
-
+   
    This version its kind of half way. Next topics are intendeed to be developed:
 
-   -Golden combinations
-   -Manual calibration command
    -Always calibrating routine
    -Real time data extract from WW3 algorithm
+   -Unify variable map in getwaves and calibration sequences 2 & 3
 
    Team:
 
@@ -43,16 +44,16 @@
 */
 
 //Driver pins
-int dir1 = 5;
-int step1 = 6;
-int dir2 = 7;
-int step2 = 8;
+int dir1 = 6;
+int step1 = 5;
+int dir2 = 8;
+int step2 = 7;
 int dir3 = 9;
 int step3 = 10;
 int dir4 = 11;
-int step4 = 12;
+int step4 = 12; 
 
-int st = 2000;
+int st = 6000;
 
 //time variables
 double timeNow;
@@ -61,19 +62,19 @@ double indexOn;
 double indexOff;
 
 //Sensor variables
-int pinS1 = 5;
+int pinS1 = A0;
 int dataS1 = 0;
-int detectS1 = 421;
+int detectS1 = 535;
 
-int pinS2 = 4;
+int pinS2 = A1;
 int dataS2 = 0;
-int detectS2 = 424;
+int detectS2 = 555;
 
 //Calibration variables
 byte cBanner = 0;
 
 int extSpeed = st;
-int intSpeed = extSpeed / 25;
+int intSpeed = extSpeed / 35;
 
 byte motorBanner1 = 0;
 byte motorBanner2 = 0;
@@ -186,7 +187,7 @@ void loop()
       //Golden combo generator. It needs 3 digit number via serial
       //works from 0 to 999
 
-      spp = map (((mid / 100) % 10), 1, 9, 2200, 1500);//Hundreds
+      spp = map (((mid / 100) % 10), 1, 9, 6200, 2500);//Hundreds
       ext = map (((mid / 10) % 10), 1, 9, 0, 100);//Tens
       slp = map ((mid % 10), 1, 9, 15, 180);//Ones
     }

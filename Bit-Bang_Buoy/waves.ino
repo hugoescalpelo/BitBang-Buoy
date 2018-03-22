@@ -24,14 +24,14 @@ void getWaves (byte y)
   {
     case 1://constant
       meanWave = 1;//Percentage extension
-      wavePeriod = 2500;//Speed
+      wavePeriod = 5500;//Speed
       waveSlope = 45;//Shift angle in degrees
       waveEntropy = 1;
       printCaseOne ();
       break;
     case 2://Random
       meanWave = random (0, 100);//In pecentage of extension
-      wavePeriod = random (1, 10000);//In miliseconds
+      wavePeriod = random (3000, 8000);//In miliseconds
       waveSlope = random (40, 120);//In degrees from 0 to 360. from 10 to 120 for a natural feeling
       waveEntropy = random (1, 10);
       break;
