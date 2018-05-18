@@ -1,7 +1,7 @@
 /*
    Ivan Abreu Studio.
 
-   21/3/2018. México City.
+   26/3/2018. México City.
 
    This code drives a mechanism that simulate sea waves, it has 4
    stepper motors with TB6600 micro stepper driver.
@@ -24,6 +24,8 @@
 
    Changelog
 
+   V9.2.1 Speed adjustents
+   V9.2 BT monitoring
    V9.1.2 pinout fixed to BT version
    V9.1.1 Manual calibration command added
    V9.1 Golden path generator added
@@ -42,6 +44,14 @@
    Beto Olguin
    Hugo Vargas
 */
+//Libraries
+#include <SoftwareSerial.h>//Serial library
+
+//Objects
+SoftwareSerial BT1 (4,3); //rx, tx
+
+
+//
 
 //Driver pins
 int dir1 = 6;
@@ -53,7 +63,7 @@ int step3 = 10;
 int dir4 = 11;
 int step4 = 12; 
 
-int st = 6000;
+int st =10000;//<--speed change required
 
 //time variables
 double timeNow;
@@ -64,11 +74,11 @@ double indexOff;
 //Sensor variables
 int pinS1 = A0;
 int dataS1 = 0;
-int detectS1 = 535;
+int detectS1 = 520;//nc 605, cc535
 
 int pinS2 = A1;
 int dataS2 = 0;
-int detectS2 = 555;
+int detectS2 = 550;//nc 635, cc550
 
 //Calibration variables
 byte cBanner = 0;
@@ -135,6 +145,9 @@ void setup()
   Serial.begin (2000000);
   Serial.println ("inicio");
 
+  BT1.begin (9600);
+  BT1.println ("BT running");
+  
   setModes (); //Pins tab
   setInitials (); //Pins tab
 
@@ -155,10 +168,8 @@ void loop()
   if (Serial.available () > 0)
   {
     int mid = Serial.parseInt (); //Catch a number
-
     if (mid == 1500)
-    {
-      
+    {      
       st = 2000;
       extSpeed = st;
       intSpeed = extSpeed / 25;
@@ -167,9 +178,7 @@ void loop()
       motorBanner2 = 0;
       stepCounter = 0;
       fg = 0;
-      sf = 0;
-
-      
+      sf = 0;      
       calibrationRoutine ();
       Serial.println ("CalibrationRoutine Done");
       stepsLap ();
@@ -187,7 +196,46 @@ void loop()
       //Golden combo generator. It needs 3 digit number via serial
       //works from 0 to 999
 
-      spp = map (((mid / 100) % 10), 1, 9, 6200, 2500);//Hundreds
+      spp = map (((mid / 100) % 10), 1, 9, 5000, 1800);//Hundreds
+      ext = map (((mid / 10) % 10), 1, 9, 0, 100);//Tens
+      slp = map ((mid % 10), 1, 9, 15, 180);//Ones
+    }
+
+    doThisThing();
+  }
+  if (BT1.available () != 0)
+  {
+    Serial.println ("Run bt command");
+    int mid = BT1.parseInt (); //Catch a number
+    if (mid == 1500)
+    {      
+      st = 10000;
+      extSpeed = st;
+      intSpeed = extSpeed / 25;
+      cBanner = 0;
+      motorBanner1 = 0;
+      motorBanner2 = 0;
+      stepCounter = 0;
+      fg = 0;
+      sf = 0;      
+      calibrationRoutine ();
+      Serial.println ("CalibrationRoutine Done");
+      stepsLap ();
+      Serial.println ("stepsLap Done");
+      getWaves (1);
+      testSequence ();
+      Serial.println ("Test sequence done");
+    }
+    else if (mid < 1000 && mid > 0)
+    {
+      Serial.println ();
+      Serial.println (mid);
+      Serial.println ();
+
+      //Golden combo generator. It needs 3 digit number via serial
+      //works from 0 to 999
+
+      spp = map (((mid / 100) % 10), 1, 9, 5000, 1800);//Hundreds
       ext = map (((mid / 10) % 10), 1, 9, 0, 100);//Tens
       slp = map ((mid % 10), 1, 9, 15, 180);//Ones
     }

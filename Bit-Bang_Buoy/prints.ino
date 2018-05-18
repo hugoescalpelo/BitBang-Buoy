@@ -17,3 +17,10 @@ void printCaseOne ()
   Serial.println (waveEntropy);
 }
 
+void BTPrintSensors ()
+{
+  BT1.print (dataS1);
+  BT1.print (" ");
+  BT1.println (dataS2);
+}
+

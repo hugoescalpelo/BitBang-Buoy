@@ -3,7 +3,8 @@ void calibrationRoutine ()
   while (cBanner == 0)
   {
     readAll ();//Sensors tab
-    //printSensors ();//Prints tab
+    printSensors ();//Prints tab
+    //BTPrintSensors ();
 
     timeNow = micros ();
 
@@ -11,12 +12,15 @@ void calibrationRoutine ()
     {
       calibrationRunMotor1 ();//Motors tab
       calibrationRunMotor2 ();
+      
     }
     else if (dataS1 < detectS1 && motorBanner1 == 0)
     {
       motorBanner1 = 1;
       stop12 ();//Motors tab
       //speedCorrect ();//Motors tab. Not needed in newer versions
+      Serial.println ("Motor1 stop");
+      BT1.println("motor1 stop");
     }
 
     if (dataS2 < detectS2 && motorBanner2 == 0)
@@ -29,6 +33,8 @@ void calibrationRoutine ()
       motorBanner2 = 1;
       stop34 ();//Motors tab
       //speedCorrect ();//Motors tab. Not needed in newer versions
+      Serial.println ("Motor2 stop");
+      BT1.println("motor2 stop");
     }
 
     if (motorBanner1 == 1 && motorBanner2 == 1)
