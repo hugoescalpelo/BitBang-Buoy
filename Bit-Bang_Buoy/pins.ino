@@ -21,4 +21,3 @@ void setInitials ()
   digitalWrite (dir4, HIGH);
   digitalWrite (step4, LOW);
 }
-
