@@ -48,7 +48,7 @@ void stepsLap ()
 {
   //st = st/2;
   cBanner = 0;
-  timeLast = micros ();
+  //timeLast = micros ();
   timeNow = micros ();
   indexStickOff = timeNow + stickOffTime;//This prevents a fake positive on sensors read at the begining of a new run
 

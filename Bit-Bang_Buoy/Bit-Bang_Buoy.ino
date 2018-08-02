@@ -74,11 +74,11 @@ double indexOff;
 //Sensor variables
 int pinS1 = A0;
 int dataS1 = 0;
-int detectS1 = 520;//nc 605, cc535
+int detectS1 = 605;//nc 605, cc535
 
 int pinS2 = A1;
 int dataS2 = 0;
-int detectS2 = 550;//nc 635, cc550
+int detectS2 = 635;//nc 635, cc550
 
 //Calibration variables
 byte cBanner = 0;
